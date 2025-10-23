@@ -4,47 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sentient AGI Hub</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN for quick design -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #1a1a1a;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
+      font-family: 'Poppins', sans-serif;
     }
-    h1 { font-size: 2.5rem; margin-bottom: 10px; }
-    h2 { margin-top: 20px; }
-    input, textarea, button {
-      padding: 10px;
-      margin: 5px 0;
-      border-radius: 5px;
-      border: none;
-      font-size: 1rem;
+    /* Animated Gradient Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
+      background-size: 600% 600%;
+      animation: gradientBG 15s ease infinite;
+      z-index: -1;
     }
-    input, textarea { width: 300px; }
-    button { cursor: pointer; background-color: #007bff; color: white; }
-    button:hover { background-color: #0056b3; }
-    .card { background-color: #333; padding: 15px; margin-top: 15px; border-radius: 10px; width: 320px; }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
   </style>
 </head>
-<body>
+<body class="text-white flex flex-col items-center min-h-screen p-6">
 
-  <h1>Sentient AGI Hub</h1>
-  <p>Play the AGI Name Game & Ask the AI about AGI roles</p>
+  <!-- Header -->
+  <header class="w-full flex justify-between items-center mb-10">
+    <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">Sentient AGI Hub</h1>
+    <nav class="flex gap-6 text-lg font-semibold">
+      <a href="#game" class="hover:text-pink-400">AGI Game</a>
+      <a href="#chatbot" class="hover:text-pink-400">AI Chatbot</a>
+    </nav>
+  </header>
+
+  <p class="text-center text-gray-300 max-w-xl mb-12">
+    Explore your AGI Persona, play the Name Game, and ask the AI about roles, contributions, and community projects.
+  </p>
 
   <!-- AGI Name Game -->
-  <h2>AGI Name Game</h2>
-  <input type="text" id="username" placeholder="Enter your Discord username" />
-  <button onclick="checkAGIRole()">Check AGI Role</button>
-  <div id="gameResult" class="card" style="display:none;"></div>
+  <section id="game" class="w-full max-w-md bg-gray-900/50 p-8 rounded-2xl shadow-lg mb-12 backdrop-blur-sm">
+    <h2 class="text-2xl font-bold mb-4 text-pink-400">AGI Name Game</h2>
+    <input type="text" id="username" placeholder="Enter your Discord username" class="w-full p-3 rounded-lg text-black mb-4"/>
+    <button onclick="checkAGIRole()" class="w-full py-3 bg-pink-500 rounded-lg font-semibold hover:bg-pink-600 transition">Check AGI Role</button>
+    <div id="gameResult" class="mt-6 p-4 bg-gray-800/70 rounded-lg shadow-inner hidden"></div>
+  </section>
 
   <!-- AI Chatbot -->
-  <h2>AI Chatbot</h2>
-  <textarea id="question" placeholder="Ask a question about AGI roles..." rows="4"></textarea>
-  <button onclick="askChatbot()">Ask</button>
-  <div id="chatAnswer" class="card" style="display:none;"></div>
+  <section id="chatbot" class="w-full max-w-md bg-gray-900/50 p-8 rounded-2xl shadow-lg backdrop-blur-sm">
+    <h2 class="text-2xl font-bold mb-4 text-purple-400">AI Chatbot</h2>
+    <textarea id="question" placeholder="Ask a question about AGI roles..." rows="4" class="w-full p-3 rounded-lg text-black mb-4"></textarea>
+    <button onclick="askChatbot()" class="w-full py-3 bg-purple-500 rounded-lg font-semibold hover:bg-purple-600 transition">Ask</button>
+    <div id="chatAnswer" class="mt-6 p-4 bg-gray-800/70 rounded-lg shadow-inner hidden"></div>
+  </section>
+
+  <footer class="mt-12 text-gray-400 text-center text-sm">
+    &copy; 2025 Sentient AGI Hub | Designed with ❤️ by your AGI community
+  </footer>
 
   <script>
     // AGI Name Game Logic
@@ -54,20 +75,19 @@
         alert('Please enter a username');
         return;
       }
-      // Dummy logic for demo: random role and score
-      const roles = ['Early AGI', 'Advanced AGI', 'Builder AGI', 'Artist AGI'];
+      const roles = ['Early AGI', 'Advanced AGI', 'Builder AGI', 'Artist AGI', 'Storyteller AGI'];
       const role = roles[Math.floor(Math.random() * roles.length)];
       const score = Math.floor(Math.random() * 100);
-      const badges = ['⭐', '🔥', '💎'];
+      const badges = ['⭐', '🔥', '💎', '🛡️'];
       const badgeCount = Math.floor(Math.random() * badges.length);
 
       const resultDiv = document.getElementById('gameResult');
       resultDiv.style.display = 'block';
       resultDiv.innerHTML = `
-        <strong>${username}</strong><br>
-        AGI Role: ${role}<br>
-        Contribution Score: ${score}<br>
-        Badges: ${badgeCount > 0 ? badges.slice(0,badgeCount).join(', ') : 'None'}
+        <strong class="text-lg">${username}</strong><br>
+        <span class="text-pink-300">AGI Role:</span> ${role}<br>
+        <span class="text-pink-300">Contribution Score:</span> ${score}<br>
+        <span class="text-pink-300">Badges:</span> ${badgeCount > 0 ? badges.slice(0,badgeCount).join(', ') : 'None'}
       `;
     }
 
@@ -76,11 +96,12 @@
       const question = document.getElementById('question').value.trim();
       if(!question) { alert('Please enter a question'); return; }
 
-      // Demo: simple predefined answers
+      // Predefined demo answers
       const answers = {
         "how to become advanced agi": "Contribute actively to projects, submit your artwork or code, and participate in community events.",
-        "builder agi": "Builder AGIs are responsible for creating tools, dashboards, and bots for the community.",
-        "artist agi": "Artist AGIs focus on creating original art, proofs, and visual contributions for the community."
+        "builder agi": "Builder AGIs create tools, dashboards, and bots for the community.",
+        "artist agi": "Artist AGIs focus on original art, proofs, and visual contributions.",
+        "storyteller agi": "Storyteller AGIs craft narratives, stories, and creative content for community engagement."
       };
 
       let answer = answers[question.toLowerCase()] || "Sorry, I don't have an answer for that yet. Please check the Sentient AGI docs.";
