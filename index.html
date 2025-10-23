@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentient AGI Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    h2 { margin-top: 20px; }
+    input, textarea, button {
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    input, textarea { width: 300px; }
+    button { cursor: pointer; background-color: #007bff; color: white; }
+    button:hover { background-color: #0056b3; }
+    .card { background-color: #333; padding: 15px; margin-top: 15px; border-radius: 10px; width: 320px; }
+  </style>
+</head>
+<body>
+
+  <h1>Sentient AGI Hub</h1>
+  <p>Play the AGI Name Game & Ask the AI about AGI roles</p>
+
+  <!-- AGI Name Game -->
+  <h2>AGI Name Game</h2>
+  <input type="text" id="username" placeholder="Enter your Discord username" />
+  <button onclick="checkAGIRole()">Check AGI Role</button>
+  <div id="gameResult" class="card" style="display:none;"></div>
+
+  <!-- AI Chatbot -->
+  <h2>AI Chatbot</h2>
+  <textarea id="question" placeholder="Ask a question about AGI roles..." rows="4"></textarea>
+  <button onclick="askChatbot()">Ask</button>
+  <div id="chatAnswer" class="card" style="display:none;"></div>
+
+  <script>
+    // AGI Name Game Logic
+    function checkAGIRole() {
+      const username = document.getElementById('username').value.trim();
+      if(!username) {
+        alert('Please enter a username');
+        return;
+      }
+      // Dummy logic for demo: random role and score
+      const roles = ['Early AGI', 'Advanced AGI', 'Builder AGI', 'Artist AGI'];
+      const role = roles[Math.floor(Math.random() * roles.length)];
+      const score = Math.floor(Math.random() * 100);
+      const badges = ['⭐', '🔥', '💎'];
+      const badgeCount = Math.floor(Math.random() * badges.length);
+
+      const resultDiv = document.getElementById('gameResult');
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = `
+        <strong>${username}</strong><br>
+        AGI Role: ${role}<br>
+        Contribution Score: ${score}<br>
+        Badges: ${badgeCount > 0 ? badges.slice(0,badgeCount).join(', ') : 'None'}
+      `;
+    }
+
+    // AI Chatbot Logic
+    async function askChatbot() {
+      const question = document.getElementById('question').value.trim();
+      if(!question) { alert('Please enter a question'); return; }
+
+      // Demo: simple predefined answers
+      const answers = {
+        "how to become advanced agi": "Contribute actively to projects, submit your artwork or code, and participate in community events.",
+        "builder agi": "Builder AGIs are responsible for creating tools, dashboards, and bots for the community.",
+        "artist agi": "Artist AGIs focus on creating original art, proofs, and visual contributions for the community."
+      };
+
+      let answer = answers[question.toLowerCase()] || "Sorry, I don't have an answer for that yet. Please check the Sentient AGI docs.";
+      const answerDiv = document.getElementById('chatAnswer');
+      answerDiv.style.display = 'block';
+      answerDiv.innerHTML = `<strong>Answer:</strong><br>${answer}`;
+    }
+  </script>
+
+</body>
+</html>
